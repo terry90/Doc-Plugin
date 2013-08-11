@@ -1,0 +1,3 @@
+name: 		DocPlugin
+version: 	0.1
+main: 		eu.docserver.docplugin.DocPlugin
