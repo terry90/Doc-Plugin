@@ -10,10 +10,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Loyal extends BukkitRunnable {
  
     private final JavaPlugin plugin;
-	private DatabaseFunc dbFunc;
+	private DatabaseFunc dbFunc = null;
     
-    public Loyal(JavaPlugin plugin, DatabaseFunc db) throws SQLException {
+    public Loyal(JavaPlugin plugin, DatabaseFunc dbFunc) throws SQLException {
         this.plugin = plugin;
+        this.dbFunc = dbFunc;
     }
  
     public void run() {
