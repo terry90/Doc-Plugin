@@ -3,6 +3,9 @@ version: 0.1
 main: eu.docserver.docplugin.DocPlugin
 author: Doc_CoBrA
 commands:
-   listplayers:
-      description: This is a test command.
-      usage: /listplayers
+    doc_help:
+      description: Learn more about Doc's plugin.
+      usage: /doc_help
+    doc_money:
+      description: Show your balance.
+      usage: /doc_money
