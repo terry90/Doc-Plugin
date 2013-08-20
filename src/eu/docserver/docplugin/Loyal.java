@@ -22,7 +22,7 @@ public class Loyal extends BukkitRunnable {
     	plugin.getLogger().info("Nb Players: " + list.length);
         for (int i = 0; i < list.length; i++) {
         	try {
-				dbFunc.addMoney(list[i].getDisplayName(), 1);
+				dbFunc.addMoney(list[i].getName(), 1);
 				list[i].sendMessage(ChatColor.GOLD + "+ 1$ !");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

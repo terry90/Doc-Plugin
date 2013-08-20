@@ -1,4 +1,4 @@
-package eu.docserver.docplugin; // replace this with yours
+package eu.docserver.docplugin;
 
 
 import java.sql.Connection;

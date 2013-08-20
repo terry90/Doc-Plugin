@@ -9,3 +9,6 @@ commands:
     doc_money:
       description: Show your balance.
       usage: /doc_money
+    doc_info:
+      description: Get informations on a player.
+      usage: /doc_info [player]
