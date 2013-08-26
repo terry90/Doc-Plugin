@@ -24,9 +24,9 @@ public class Commands {
 		else if (command.getName().equalsIgnoreCase("doc_info"))
 			return cmdDocInfo(sender, args);
 		else if (command.getName().equalsIgnoreCase("doc_help")) {
-			sender.sendMessage(ChatColor.GREEN + "/doc_money          -> votre solde actuel");
-			sender.sendMessage(ChatColor.GREEN + "/doc_help           -> commandes du Doc's plugin");
-			sender.sendMessage(ChatColor.GREEN + "/doc_info [player]  -> infos sur le joueur");
+			sender.sendMessage(ChatColor.GREEN + "/doc_money -> votre solde actuel");
+			sender.sendMessage(ChatColor.GREEN + "/doc_help -> commandes du Doc's plugin");
+			sender.sendMessage(ChatColor.GREEN + "/doc_info [player] -> infos sur le joueur");
 			return true;
 		}
 		return false;
