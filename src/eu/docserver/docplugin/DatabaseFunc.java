@@ -97,4 +97,18 @@ public class DatabaseFunc {
 			return ("Unknown rank");
 		}
 	}
+
+	public void addLogTime(String username, int i) throws SQLException {
+		checkCo();
+		Statement state = c.createStatement();
+		state.executeUpdate("UPDATE user SET log = log + " + i + " WHERE login = '" + username + "';");
+	}
+
+	public int getLogTime(String username) throws SQLException {
+		checkCo();
+		Statement state = c.createStatement();
+		ResultSet res = state.executeQuery("SELECT log FROM user WHERE login = '" + username + "';");
+		res.next();
+		return (res.getInt("log"));
+	}
 }

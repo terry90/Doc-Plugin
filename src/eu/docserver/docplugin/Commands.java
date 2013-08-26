@@ -1,6 +1,7 @@
 package eu.docserver.docplugin;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -39,8 +40,13 @@ public class Commands {
 			if (dbFunc.checkOfflinePlayer(args[0])) {
 				sender.sendMessage(ChatColor.BLUE + args[0] + ":");
 				try {
-					sender.sendMessage(ChatColor.DARK_GREEN + "Money: " + ChatColor.AQUA + dbFunc.getMoney(args[0]) + "$");
-					sender.sendMessage(ChatColor.DARK_GREEN + "Rank: " + ChatColor.AQUA + dbFunc.getRankName(args[0]));
+					int logTime = dbFunc.getLogTime(args[0]);
+					String stringLog = String.format("%dj %dh %dm", TimeUnit.MINUTES.toDays(logTime),
+				            TimeUnit.MINUTES.toHours(logTime) - TimeUnit.DAYS.toHours(TimeUnit.MINUTES.toDays(logTime)),
+				            TimeUnit.MINUTES.toMinutes(logTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours(logTime)));
+					sender.sendMessage(ChatColor.DARK_GREEN + "Argent: " + ChatColor.AQUA + dbFunc.getMoney(args[0]) + "$");
+					sender.sendMessage(ChatColor.DARK_GREEN + "Rang: " + ChatColor.AQUA + dbFunc.getRankName(args[0]));
+					sender.sendMessage(ChatColor.DARK_GREEN + "Temps de jeu: " + ChatColor.AQUA + stringLog);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
