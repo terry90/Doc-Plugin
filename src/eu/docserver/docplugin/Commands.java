@@ -47,6 +47,7 @@ public class Commands {
 					sender.sendMessage(ChatColor.DARK_GREEN + "Argent: " + ChatColor.AQUA + dbFunc.getMoney(args[0]) + "$");
 					sender.sendMessage(ChatColor.DARK_GREEN + "Rang: " + ChatColor.AQUA + dbFunc.getRankName(args[0]));
 					sender.sendMessage(ChatColor.DARK_GREEN + "Temps de jeu: " + ChatColor.AQUA + stringLog);
+					dbFunc.closeCo();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -65,6 +66,7 @@ public class Commands {
 		}
 		try {
 			dbFunc.showMoney(sender.getName());
+			dbFunc.closeCo();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

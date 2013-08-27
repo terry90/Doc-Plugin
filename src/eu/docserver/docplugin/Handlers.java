@@ -37,6 +37,7 @@ public class Handlers implements Listener {
 			if (dbFunc.getRank(p.getName()) == 2) { // Donateur
 				p.setDisplayName(ChatColor.GOLD + p.getName() + ChatColor.RESET);
 			}
+			dbFunc.closeCo();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

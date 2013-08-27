@@ -28,5 +28,6 @@ public class Loyal extends BukkitRunnable {
 				e1.printStackTrace();
 			}
         }
+        dbFunc.closeCo();
     }
 }

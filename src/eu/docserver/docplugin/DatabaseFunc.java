@@ -12,8 +12,9 @@ public class DatabaseFunc {
 	private final JavaPlugin plugin;
 	private MySQL db = null;
 	private String adress, port, database, user, pass;
-	public Connection c = null;
-
+	private Connection c = null;
+	private Statement state = null;
+	
 	public DatabaseFunc(JavaPlugin plugin) {
 		this.plugin = plugin;
 		this.adress = plugin.getConfig().getString("db_adress");
@@ -22,11 +23,25 @@ public class DatabaseFunc {
 		this.user = plugin.getConfig().getString("db_user");
 		this.pass = plugin.getConfig().getString("db_pass");
 		db = new MySQL(adress, port, database, user, pass);
-		checkCo();
 	}
 
-	public void checkCo() {
-		if (db == null || db.checkConnection() == false) {
+	public void closeCo() {
+		try {
+			state.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		state = null;
+		try {
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		c = null;
+	}
+	
+	private void checkCo() {
+		if (c == null) {
 			plugin.getLogger().info("Restarting db connection");
 			c = db.open();
 		}
@@ -34,15 +49,16 @@ public class DatabaseFunc {
 
 	public int getMoney(String username) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		ResultSet res = state.executeQuery("SELECT money FROM user WHERE login = '" + username + "';");
 		res.next();
-		return (res.getInt("money"));
+		int money = res.getInt("money");
+		return (money);
 	}
 
 	public void showMoney(String username) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		Player player = plugin.getServer().getPlayer(username);
 		ResultSet res = state.executeQuery("SELECT money FROM user WHERE login = '" + player.getName() + "';");
 		res.next();
@@ -52,7 +68,7 @@ public class DatabaseFunc {
 
 	public void addMoney(String username, int to_add) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		int money = getMoney(username) + to_add;
 		state.executeUpdate("UPDATE user SET money = '" + money + "' WHERE login = '" + username + "';");
 	}
@@ -63,19 +79,19 @@ public class DatabaseFunc {
 
 	public int getRank(String username) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		ResultSet res = state.executeQuery("SELECT level FROM user WHERE login = '" + username + "';");
 		res.next();
-		return (res.getInt("level"));
+		int level = res.getInt("level");
+		return (level);
 	}
 
 	public boolean checkOfflinePlayer(String username) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		ResultSet res = state.executeQuery("SELECT id FROM user WHERE login = '" + username + "';");
-		if (res.next())
-			return true;
-		return false;
+		boolean ok = res.next() ? true : false;
+		return ok;
 	}
 
 	public String getRankName(String username) throws SQLException {
@@ -100,15 +116,16 @@ public class DatabaseFunc {
 
 	public void addLogTime(String username, int i) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		state.executeUpdate("UPDATE user SET log = log + " + i + " WHERE login = '" + username + "';");
 	}
 
 	public int getLogTime(String username) throws SQLException {
 		checkCo();
-		Statement state = c.createStatement();
+		state = c.createStatement();
 		ResultSet res = state.executeQuery("SELECT log FROM user WHERE login = '" + username + "';");
 		res.next();
-		return (res.getInt("log"));
+		int log = res.getInt("log");
+		return (log);
 	}
 }

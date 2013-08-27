@@ -25,5 +25,6 @@ public class LogTime extends BukkitRunnable {
 				e1.printStackTrace();
 			}
         }
+        dbFunc.closeCo();
     }
 }
