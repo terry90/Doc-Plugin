@@ -1,0 +1,5 @@
+db_adress: localhost
+db_database: default
+db_port: 3306
+db_user: default
+db_pass: default

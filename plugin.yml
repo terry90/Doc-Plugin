@@ -1,3 +1,14 @@
-name: 		DocPlugin
-version: 	0.1
-main: 		eu.docserver.docplugin.DocPlugin
+name: DocPlugin
+version: 0.1
+main: eu.docserver.docplugin.DocPlugin
+author: Doc_CoBrA
+commands:
+    doc_help:
+      description: Learn more about Doc's plugin.
+      usage: /doc_help
+    doc_money:
+      description: Show your balance.
+      usage: /doc_money
+    doc_info:
+      description: Get informations on a player.
+      usage: /doc_info [player]
