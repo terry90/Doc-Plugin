@@ -27,7 +27,13 @@ public class Handlers implements Listener {
 		p.setAllowFlight(true);
 		p.setFlySpeed((float) 0.8);
 	}
-
+	
+	private void basicPlayer(Player p) {
+		p.setWalkSpeed((float) 0.2);
+		p.setAllowFlight(false);
+		p.setFlySpeed((float) 0.2);
+	}
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
@@ -43,6 +49,8 @@ public class Handlers implements Listener {
 		}
 		if (p.isOp()) {
 			opPlayer(p);
+		} else {
+			basicPlayer(p);
 		}
 	}
 
