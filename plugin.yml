@@ -12,3 +12,9 @@ commands:
     doc_info:
       description: Get informations on a player.
       usage: /doc_info [player]
+    doc_top:
+      description: Print top players on server.
+      usage: /doc_top [nb (1-20)]
+    doc_op:
+      description: Admin give op powers to someone.
+      usage: /doc_op [player]

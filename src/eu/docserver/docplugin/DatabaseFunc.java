@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,18 +27,22 @@ public class DatabaseFunc {
 	}
 
 	public void closeCo() {
-		try {
-			state.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (state != null) {
+			try {
+				state.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			state = null;
 		}
-		state = null;
-		try {
-			c.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (c != null) {
+			try {
+				c.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			c = null;
 		}
-		c = null;
 	}
 
 	private void checkCo() {
@@ -126,5 +131,36 @@ public class DatabaseFunc {
 		res.next();
 		int log = res.getInt("log");
 		return (log);
+	}
+
+	public String getName(int id) throws SQLException {
+		checkCo();
+		ResultSet res = state.executeQuery("SELECT login FROM user WHERE id = '" + id + "';");
+		res.next();
+		String name = res.getString("login");
+		return (name);
+	}
+
+	public DataUser getUser(int id) throws SQLException {
+		checkCo();
+		String name = getName(id);
+		int level = getRank(name);
+		int money = getMoney(name);
+		int log = getLogTime(name);
+		DataUser user = new DataUser(log, name, level, money);
+		return (user);
+	}
+
+	public ArrayList<DataUser> getTop(int i) throws SQLException {
+		ArrayList<DataUser> ret = new ArrayList<DataUser>();
+		checkCo();
+		Statement st = c.createStatement();
+		ResultSet res = st.executeQuery("SELECT id FROM user ORDER BY log DESC LIMIT " + i + ";");
+		while (res.next()) {
+			if (!res.isClosed())
+				ret.add(getUser(res.getInt("id")));
+		}
+		st.close();
+		return ret;
 	}
 }
