@@ -20,10 +20,13 @@ public class Loyal extends BukkitRunnable {
     public void run() {
     	Player[] list = plugin.getServer().getOnlinePlayers();
     	plugin.getLogger().info("Nb Players: " + list.length);
+    	float money = (float) 1.0;
         for (int i = 0; i < list.length; i++) {
         	try {
 				dbFunc.addMoney(list[i].getName(), 1);
-				list[i].sendMessage(ChatColor.GOLD + "+ 1$ !");
+				money = (float) (1 + (Math.floor(dbFunc.getLogTime(list[i].getName()) / 720)) / 10);
+				money = (float) (money >= 2.0 ? 2.0 : money);
+				list[i].sendMessage(ChatColor.GOLD + "+ " + money + "$ !");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}

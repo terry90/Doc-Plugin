@@ -25,7 +25,9 @@ public class Handlers implements Listener {
 		p.sendMessage(ChatColor.DARK_PURPLE + "Bienvenue sur le serveur de " + ChatColor.AQUA + "Doc_CoBrA");
 		p.sendMessage(ChatColor.BLUE + "Pour avoir une liste détaillée des commandes tapez /doc_help" + ChatColor.RESET);
 		try {
-			if (dbFunc.getRank(p.getName()) == 2) { // Donateur
+			if (p.isOp()) {
+				p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
+			} else if (dbFunc.getRank(p.getName()) == 2) { // Donateur
 				p.setDisplayName(ChatColor.GOLD + p.getName() + ChatColor.RESET);
 			}
 			dbFunc.closeCo();
